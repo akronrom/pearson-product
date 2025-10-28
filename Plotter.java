@@ -96,14 +96,17 @@ class Plotter extends JPanel {
 		
 		for (int i = 0; i < xt.length; i++) {
 			
+			int x = WIDTH 	- (int) (xt[i] * scale);
+			int y = HEIGHT 	- (int) (yt[i] * scale);
+			
+			
 			switch (i % 2) {
 				
 				case 0:	g.fillRect(
 				
-						WIDTH 	- (int) (xt[i] * scale), 
-						HEIGHT 	- (int) (yt[i] * scale),
-						
-						SIZE, SIZE	// Dimensions
+						x - SIZE/2,	// Dimensions
+						y - SIZE/2,
+						SIZE, SIZE	
 						
 						);
 						
@@ -111,9 +114,8 @@ class Plotter extends JPanel {
 					
 				case 1: g.drawRect(
 				
-						WIDTH 	- (int) (xt[i] * scale), 
-						HEIGHT 	- (int) (yt[i] * scale),
-						
+						x - SIZE/2,		
+						y - SIZE/2,
 						SIZE, SIZE
 						
 						);
