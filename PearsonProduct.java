@@ -21,8 +21,8 @@ public class PearsonProduct {
 	static void printPearsonTable(double[] xt, double[] yt, float scale) {
 		
 		counter += 1; System.out.println("\n\tCORRELATION COEFFICIENT TABLE #" + counter + "\n");
-		
 		DecimalFormat df = new DecimalFormat("#.##");
+		long t1 = System.nanoTime();
 		
 		/*
 		INSTRUCTIONS: 	1.	The variable 'df' denotes how many 
@@ -117,6 +117,15 @@ public class PearsonProduct {
 		
 		);
 		
+		long t2 = (System.nanoTime() - t1)/1_000_000;
+		
+		System.out.print(
+		
+		"\t\t" 	+ "DONE PRINTING, ENJOY." + "\n" 	+
+		"\t" 	+ "Finished printing in " + t2		+ " milliseconds!" 	+ "\n"
+		
+		);
+		
 		Plotter pl = new Plotter(xt, yt, scale, Double.valueOf(df.format(res)), counter, deg);
 		
 	}
@@ -145,8 +154,6 @@ public class PearsonProduct {
 			return;
 			
 		}
-		
-		long t1 = System.nanoTime();
 		
 		printPearsonTable(
 			new double[]
@@ -230,14 +237,7 @@ public class PearsonProduct {
 			
 		);
 		
-		long t2 = (System.nanoTime() - t1)/1_000_000;
 		
-		System.out.print(
-		
-		"\t\t" 	+ "DONE PRINTING, ENJOY." + "\n" 	+
-		"\t" 	+ "Finished printing in " + t2		+ " milliseconds!" 	+ "\n"
-		
-		);
 		
 		
 	}
