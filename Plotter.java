@@ -41,7 +41,8 @@ class Plotter extends JPanel {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
+
+		frame.setAlwaysOnTop(true);
 		frame.add(this);
 		frame.pack();
 		
