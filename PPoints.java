@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.Graphics;
 
 class PPoints {
 	
 	List<PlotPoint> pts;
 	
-	PPoints(double[] xt, 	double[] yt,
-			float scale){
+	PPoints(double[] xt, 	
+			double[] yt){
 		
 		pts = new ArrayList<>();
 		
@@ -12,8 +15,8 @@ class PPoints {
 			
 			pts.add(
 				new PlotPoint(
-					xt[i] * scale,
-					yt[i] * scale
+					xt[i],
+					yt[i]
 				)
 			);
 		}	
@@ -21,15 +24,9 @@ class PPoints {
 	
 	public void draw(Graphics g) {
 		
-		for (PlotPoint pt: pts) {
-			
-			pt.draw(g);
-			
-		}
+		for (PlotPoint pt: pts) pt.draw(g);
 		
 	}
-	
-	
 	
 }
 
@@ -47,14 +44,19 @@ class PlotPoint {
 	
 	public void draw(Graphics g) {
 		
-		g.drawRect(
+		g.drawOval(
 				
-			(int) (x - SIZE/2),		
-			(int) (y - SIZE/2),
-			SIZE, SIZE
+			Plotter.offsetX + (int) (Plotter.scale * (x - SIZE/2)),		
+			Plotter.offsetY + (int) (Plotter.scale * (y - SIZE/2)),
+			(int) (SIZE * Plotter.scale), 
+			(int) (SIZE * Plotter.scale)
 						
-		);
-		
+			);
+
+		if (Plotter.PARTY_MODE) {
+			this.x += Math.random() - 0.5;
+			this.y += Math.random() - 0.5;
+		}
 	}
 	
 }
