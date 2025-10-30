@@ -6,12 +6,13 @@ Future plans:
 2. Add a better way to enter data sets.
 
 Controls:
-'r' - CENTER CROSSHAIR.
-SPACEBAR - PARTY MODE ;)
+```
+r - CENTER CROSSHAIR
+SPACEBAR - PARTY MODE
 
 'w' - UP.
 'a' - LEFT.
 's' - DOWN.
 'd' - RIGHT.
-
+```
 
