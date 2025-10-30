@@ -1,30 +1,38 @@
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Graphics;
+import java.awt.Color;
 import java.util.Calendar;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.text.SimpleDateFormat;
 
+// Listeners for User Inputs.
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelListener;
+
 public class Plotter extends JPanel {
-	
+
 	JFrame frame;
 	
-	static int WIDTH  = 500;
-	static int HEIGHT = 500;
+	static int 	WIDTH  = 300;
+	static int 	HEIGHT = 300;
 	
+	static float scale;
+	
+	static int 	offsetX;
+	static int 	offsetY;
 	double[] 	xt, yt; 
-	float 		scale;
 	String 		msg;
 	
 	double 		r;
 	
-	PPoints 	pts;
+	PPoints 	points;
+	
+	static boolean PARTY_MODE = false;
 	
 	Plotter(double[] xt, 	double[] yt, 
-			float scale, 	double 	rc, 
+			float scale, 	double 	r, 
 			int 	num, 	String msg) {	
 	
 		this.xt 	= xt;
@@ -50,7 +58,10 @@ public class Plotter extends JPanel {
 		frame.add(this);
 		frame.pack();
 		
-		pts = new PPoints(xt, yt, scale);
+		points = new PPoints(xt, yt);
+		
+		frame.addKeyListener(new ViewController(xt, yt));
+		addMouseWheelListener(new ZoomAction());
 		 
 	}
 	
@@ -95,11 +106,28 @@ public class Plotter extends JPanel {
 			
 		}
 		
+		g.setColor(Color.LIGHT_GRAY);
+		
+		g.drawLine(
+			WIDTH/2, 0,
+			WIDTH/2, HEIGHT
+			);
+			
+		g.drawLine(
+			0, HEIGHT/2,
+			WIDTH, HEIGHT/2
+			);
+					
+		
+		g.setColor(Color.BLACK);
+		
 		g.drawString("Written by: Gabriel", WIDTH - 125, 25);
 		g.drawString(displDeg + " ("+r+")", 25, HEIGHT - 25);			
 		g.drawString(now(), 				25, 		 25);	
 		
-		pts.draw(g);
+		points.draw(g);
+		
+		frame.repaint();
 		
 		
 	}
