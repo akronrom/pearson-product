@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Graphics;
@@ -6,26 +8,28 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.text.SimpleDateFormat;
 
-class Plotter extends JPanel {
+public class Plotter extends JPanel {
 	
 	JFrame frame;
 	
-	int WIDTH 	= 500;
-	int HEIGHT 	= 500;
+	static int WIDTH  = 500;
+	static int HEIGHT = 500;
 	
-	double[] xt, yt; 
+	double[] 	xt, yt; 
+	float 		scale;
+	String 		msg;
 	
-	float 	scale;
-	double 	r;
-	String 	msg;
+	double 		r;
+	
+	PPoints 	pts;
 	
 	Plotter(double[] xt, 	double[] yt, 
-			float scale, 	double 	r, 
+			float scale, 	double 	rc, 
 			int 	num, 	String msg) {	
 	
 		this.xt 	= xt;
 		this.yt 	= yt;
-		this.r 		= r;
+		this.r	 	= r;
 		this.msg 	= msg;
 		this.scale 	= scale;
 	
@@ -41,11 +45,13 @@ class Plotter extends JPanel {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-
+		
 		frame.setAlwaysOnTop(true);
 		frame.add(this);
 		frame.pack();
 		
+		pts = new PPoints(xt, yt, scale);
+		 
 	}
 	
 	public static String now() {
@@ -55,8 +61,6 @@ class Plotter extends JPanel {
 	}
 	
 	public void paint(Graphics g) {
-		
-		int SIZE = 5;
 		
 		String displDeg = "";
 		
@@ -92,43 +96,10 @@ class Plotter extends JPanel {
 		}
 		
 		g.drawString("Written by: Gabriel", WIDTH - 125, 25);
-		g.drawString(displDeg + ", "+ r, 	25, HEIGHT - 25);			
+		g.drawString(displDeg + " ("+r+")", 25, HEIGHT - 25);			
 		g.drawString(now(), 				25, 		 25);	
 		
-		for (int i = 0; i < xt.length; i++) {
-			
-			int x = WIDTH 	- (int) (xt[i] * scale);
-			int y = HEIGHT 	- (int) (yt[i] * scale);
-			
-			
-			switch (i % 2) {
-				
-				case 0:	g.fillRect(
-				
-						x - SIZE/2,	// Dimensions
-						y - SIZE/2,
-						SIZE, SIZE	
-						
-						);
-						
-						break;
-					
-				case 1: g.drawRect(
-				
-						x - SIZE/2,		
-						y - SIZE/2,
-						SIZE, SIZE
-						
-						);
-						
-						break;
-					
-			}
-			
-			
-			
-		}
-		
+		pts.draw(g);
 		
 		
 	}
