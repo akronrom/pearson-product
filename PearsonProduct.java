@@ -1,8 +1,5 @@
 import java.text.DecimalFormat;
 import java.util.Scanner;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PearsonProduct {
 	
@@ -149,7 +146,7 @@ public class PearsonProduct {
 		
 		String ans = sc.nextLine();
 		
-		if (!ans.equals("YES")) {
+		if (!ans.equalsIgnoreCase("YES")) {
 			
 			return;
 			
@@ -227,7 +224,8 @@ public class PearsonProduct {
 				37.0,
 				33.7,
 				22.7,
-				15.0
+				15.0,
+				
 				
 				
 			},
@@ -239,8 +237,8 @@ public class PearsonProduct {
 		
 		
 		
-		
 	}
+	
 	
 	
 }
